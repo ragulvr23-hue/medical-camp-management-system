@@ -1,0 +1,12 @@
+<%- include("../partials/header") %>
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+  <h1 class="section-title mb-0">Student health records</h1>
+  <div class="d-flex gap-2"><a class="btn btn-outline-success" href="/records/export.csv"><i class="bi bi-file-earmark-spreadsheet me-1"></i> Export Excel CSV</a><a class="btn btn-primary" href="/records/new">Add record</a></div>
+</div>
+<form class="row g-2 mb-3"><div class="col-md-5"><input name="q" class="form-control" value="<%= q %>" placeholder="Search by Student ID or name"></div><div class="col-auto"><button class="btn btn-outline-primary">Search</button><a class="btn btn-outline-secondary" href="/records">Clear</a></div></form>
+<div class="card border-0 shadow-sm"><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>Date</th><th>Student</th><th>ID</th><th>Symptoms</th><th>Assessment</th><th>Doctor</th><th>Report</th></tr></thead><tbody>
+<% records.forEach(r=>{ %><tr><td><%= new Date(r.visitDate).toLocaleDateString() %></td><td><%= r.student?.fullName||"—" %></td><td><%= r.student?.studentId||"—" %></td><td><%= r.symptoms %></td><td><%= r.diagnosis %></td><td><%= r.doctor %></td><td><a class="btn btn-sm btn-outline-primary" target="_blank" href="/records/<%= r._id %>/print">Print / PDF</a></td></tr><% }) %>
+<% if (!records.length) { %><tr><td colspan="7" class="text-center text-muted py-4">No health records found.</td></tr><% } %>
+</tbody></table></div></div>
+<div class="small text-muted mt-2">CSV files open in Microsoft Excel. For a PDF, open a record and choose Print → Save as PDF.</div>
+<%- include("../partials/footer") %>

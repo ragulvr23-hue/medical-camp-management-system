@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Health Record - MediCamp</title>
+<style>
+*{box-sizing:border-box}body{font:15px Arial,sans-serif;color:#1f2937;margin:32px}.header{border-bottom:3px solid #087f8c;padding-bottom:14px;margin-bottom:22px}.brand{font-size:24px;font-weight:700;color:#087f8c}.muted{color:#64748b}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.item{border:1px solid #dbe4e8;border-radius:8px;padding:12px;min-height:66px}.label{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:#64748b;margin-bottom:6px}.value{white-space:pre-wrap;overflow-wrap:anywhere}.actions{margin-bottom:20px}.actions button{padding:9px 16px;background:#087f8c;color:white;border:0;border-radius:6px;cursor:pointer}@media print{body{margin:12mm}.actions{display:none}.item{break-inside:avoid}}
+</style></head><body>
+<div class="actions"><button onclick="window.print()">Print / Save as PDF</button></div>
+<div class="header"><div class="brand">♥ MediCamp</div><div class="muted">Student Health Record</div></div>
+<h2><%= record.student?.fullName || "Student" %></h2>
+<p class="muted">Student ID: <%= record.student?.studentId || "—" %> · Visit date: <%= record.visitDate ? new Date(record.visitDate).toLocaleDateString() : "—" %></p>
+<div class="grid">
+<% const fields = [["Doctor",record.doctor],["Blood group",record.bloodGroup],["Blood pressure",record.bloodPressure],["Temperature",record.temperature == null ? "—" : record.temperature+" °C"],["Height",record.heightCm == null ? "—" : record.heightCm+" cm"],["Weight",record.weightKg == null ? "—" : record.weightKg+" kg"],["Allergies",record.allergies],["Symptoms",record.symptoms],["Diagnosis",record.diagnosis],["Treatment",record.treatment],["Advice",record.advice],["Medical history",record.medicalHistory]]; fields.forEach(([label,value])=>{ %>
+<div class="item"><div class="label"><%= label %></div><div class="value"><%= value || "—" %></div></div>
+<% }) %></div>
+<p class="muted" style="margin-top:24px;font-size:12px">Confidential student health information. Share only with the student and authorized healthcare personnel.</p>
+</body></html>

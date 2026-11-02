@@ -10,6 +10,7 @@ const csrf = require("csurf");
 const flash = require("connect-flash");
 
 const app = express();
+app.set("trust proxy", 1);
 const required = ["MONGODB_URI", "SESSION_SECRET"];
 const missing = required.filter((key) => !process.env[key]);
 if (missing.length) {
